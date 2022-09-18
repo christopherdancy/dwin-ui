@@ -19,6 +19,7 @@ function ProposalDetails() {
   const { dwinContract } = useBlockchainData();
   const markets = useDwinEvents(dwinContract);
   const [proposal, setProposal] = useState<any>();
+  const [balance, setbalance] = useState('');
 
   useEffect(() => {
     if (markets === undefined || params === undefined) {
@@ -34,9 +35,10 @@ function ProposalDetails() {
     setProposal(foundProposal);
   }, [markets, params, params.proposalNumber]);
 
-  if (proposal === undefined) {
+  if (proposal === undefined || !dwinContract) {
     return <div className="text-white">Proposals loading...</div>;
   }
+  dwinContract.getTotalNetBets(2).then(res => setbalance(res.toString()));
 
   return (
     <div>
@@ -49,7 +51,8 @@ function ProposalDetails() {
       />
       <div className="flex">
         <CastBet />
-        <ProposalVotes proposal={proposal} />
+        {/* <div>{balance}</div> */}
+        <ProposalVotes />
       </div>
     </div>
   );

@@ -24,6 +24,7 @@ const useBetTransaction = ({
     if (!signerOrProvider || !bet || !dwinContract || !value) {
       return;
     }
+    console.log('hfrei');
 
     contractCallBetTransaction({
       contractFn: () => dwinContract.makeBet(2, bet, { value: ethers.utils.parseEther('.001') }),
@@ -31,7 +32,7 @@ const useBetTransaction = ({
       failedMessage: 'Bet Failed',
       successMessage: 'Betting Completed',
     });
-  }, [bet, contractCallBetTransaction, dwinContract, signerOrProvider]);
+  }, [bet, contractCallBetTransaction, dwinContract, signerOrProvider, value]);
   return queueTransaction;
 };
 
